@@ -4,7 +4,7 @@
 
 A **unique, interactive portfolio experience** that reimagines the developer identity through the familiar interface of Discord. Built with performance, accessibility, and attention to detail in mind, this project demonstrates advanced frontend engineering skills using modern web technologies.
 
-[**View Live Demo**](https://valetiportfolio.vercel.app/)
+[**View Live Demo**](https://vivek-discord.vercel.app/)
 
 ## ✨ Key Features
 
