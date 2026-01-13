@@ -160,7 +160,7 @@ export default function MessageInput({ channel }: Props) {
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={`Message #${channel.name}`}
-            className="flex-1 bg-transparent text-[#DCDDDE] placeholder-[#6D6F78] outline-none text-base"
+            className="flex-1 bg-transparent text-[#DCDDDE] placeholder-[#6D6F78] outline-none text-base focus-visible:ring-0 focus-visible:ring-offset-0"
             aria-label={`Message input for ${channel.name}`}
           />
 

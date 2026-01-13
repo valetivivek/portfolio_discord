@@ -12,6 +12,10 @@ type DiscordContextType = {
     setProfileModal: (member: MemberData | null) => void;
     serverDropdownOpen: boolean;
     setServerDropdownOpen: (open: boolean) => void;
+    slashCommandOpen: boolean;
+    setSlashCommandOpen: (open: boolean) => void;
+    slashCommandQuery: string;
+    setSlashCommandQuery: (query: string) => void;
 };
 
 const DiscordContext = createContext<DiscordContextType | null>(null);
@@ -21,6 +25,8 @@ export function DiscordProvider({ children }: { children: React.ReactNode }) {
     const [showMemberList, setShowMemberList] = useState(true);
     const [profileModal, setProfileModal] = useState<MemberData | null>(null);
     const [serverDropdownOpen, setServerDropdownOpen] = useState(false);
+    const [slashCommandOpen, setSlashCommandOpen] = useState(false);
+    const [slashCommandQuery, setSlashCommandQuery] = useState("");
 
     return (
         <DiscordContext.Provider
@@ -33,6 +39,10 @@ export function DiscordProvider({ children }: { children: React.ReactNode }) {
                 setProfileModal,
                 serverDropdownOpen,
                 setServerDropdownOpen,
+                slashCommandOpen,
+                setSlashCommandOpen,
+                slashCommandQuery,
+                setSlashCommandQuery,
             }}
         >
             {children}

@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function ChannelHeaderBar({ channel }: Props) {
-  const { showMemberList, setShowMemberList } = useDiscord();
+  const { showMemberList, setShowMemberList, setSlashCommandOpen, setSlashCommandQuery } = useDiscord();
   const [muted, setMuted] = React.useState(false);
 
   const getChannelIcon = () => {
@@ -84,7 +84,20 @@ export default function ChannelHeaderBar({ channel }: Props) {
             type="text"
             placeholder="Search"
             className="w-36 h-6 bg-[#1E1F22] rounded px-1.5 text-sm text-[#DBDEE1] placeholder-[#B5BAC1] outline-none focus:w-56 transition-all"
-            onKeyDown={(e) => e.key === 'Enter' && alert("Search functionality coming soon! Try /commands instead. 🔍")}
+            onChange={(e) => {
+              const val = e.target.value;
+              if (val) {
+                setSlashCommandQuery(val);
+                setSlashCommandOpen(true);
+                // Clear input after a brief delay so it doesn't stay filled when we return
+                setTimeout(() => { e.target.value = "" }, 100);
+              }
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setSlashCommandOpen(true);
+              }
+            }}
           />
         </div>
 
@@ -115,9 +128,12 @@ export default function ChannelHeaderBar({ channel }: Props) {
 
         {/* Help */}
         <button
-          onClick={() => alert("Need help? Use /help to see available commands! ❓")}
+          onClick={() => {
+            setSlashCommandOpen(true);
+            setSlashCommandQuery("");
+          }}
           className="p-2 rounded hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
-          title="Help"
+          title="See all commands"
         >
           <HelpCircle className="w-6 h-6" />
         </button>

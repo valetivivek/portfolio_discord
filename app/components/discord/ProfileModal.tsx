@@ -157,7 +157,7 @@ export default function ProfileModal({ member, onClose }: Props) {
                   💼 Open to SDE & Full-Stack roles
                 </>
               ) : isBot ? (
-                "I help navigate this portfolio server! Try /help to see what I can do."
+                "I help navigate this portfolio server! Try using the command palette to see what I can do."
               ) : (
                 member.activity || "Exploring this amazing portfolio!"
               )}

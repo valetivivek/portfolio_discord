@@ -15,33 +15,56 @@ type Command = {
 import { useCommands } from "./useCommands";
 
 export default function SlashCommand() {
-  const { setActiveChannel } = useDiscord();
-  const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
+  const { setActiveChannel, slashCommandOpen, setSlashCommandOpen, slashCommandQuery, setSlashCommandQuery } = useDiscord();
   const [selectedIndex, setSelectedIndex] = useState(0);
+  // We keep a local query for the input to avoid lag, but sync with context when opening
+  const [localQuery, setLocalQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   const commands = useCommands();
 
+  // Sync global query to local query when opening
+  useEffect(() => {
+    if (slashCommandOpen) {
+      setLocalQuery(slashCommandQuery);
+    }
+  }, [slashCommandOpen, slashCommandQuery]);
+
   const filteredCommands = commands.filter(cmd =>
-    cmd.name.toLowerCase().includes(query.toLowerCase()) ||
-    cmd.description.toLowerCase().includes(query.toLowerCase())
+    cmd.name.toLowerCase().includes(localQuery.toLowerCase()) ||
+    cmd.description.toLowerCase().includes(localQuery.toLowerCase())
   );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Open command palette with / key
-      if (e.key === "/" && !isOpen && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA") {
+      // Open command palette with Ctrl+F, Ctrl+K, or /
+      const isSearchShortcut = (e.metaKey || e.ctrlKey) && (e.key === "f" || e.key === "k");
+      const isSlashTrigger = e.key === "/" && !slashCommandOpen && document.activeElement?.tagName !== "INPUT" && document.activeElement?.tagName !== "TEXTAREA";
+
+      if (isSearchShortcut || isSlashTrigger) {
         e.preventDefault();
-        setIsOpen(true);
-        setQuery("");
+        setSlashCommandOpen(true);
+        // Don't clear query if it was a shortcut, so user can see previous search? 
+        // Actually typically you want to select the text. For now let's clear or select.
+        // Let's clear for fresh search as per previous behavior.
+        // setSlashCommandQuery(""); 
+        // Actually, if simply opening, maybe we should select all text? 
+        // For simplicity matching existing logic:
+        // if (isSlashTrigger) setSlashCommandQuery(""); 
+        // specific request "search based on words", so we keep the input as is.
+        // Let's just focus it.
+
+        if (inputRef.current) {
+          inputRef.current.focus();
+          inputRef.current.select();
+        }
         setSelectedIndex(0);
       }
 
-      if (isOpen) {
+      if (slashCommandOpen) {
         if (e.key === "Escape") {
-          setIsOpen(false);
-          setQuery("");
+          setSlashCommandOpen(false);
+          // Optional: clear query on close? existing logic did.
         } else if (e.key === "ArrowDown") {
           e.preventDefault();
           setSelectedIndex((prev) => (prev + 1) % filteredCommands.length);
@@ -51,66 +74,53 @@ export default function SlashCommand() {
         } else if (e.key === "Enter" && filteredCommands[selectedIndex]) {
           e.preventDefault();
           filteredCommands[selectedIndex].action();
-          setIsOpen(false);
-          setQuery("");
+          setSlashCommandOpen(false);
+          setSlashCommandQuery("");
         }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, query, selectedIndex, filteredCommands, setActiveChannel]);
+  }, [slashCommandOpen, localQuery, selectedIndex, filteredCommands, setActiveChannel, setSlashCommandOpen, setSlashCommandQuery, slashCommandQuery]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (slashCommandOpen && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isOpen]);
+  }, [slashCommandOpen]);
 
   return (
     <>
-      <button
-        onClick={() => {
-          setIsOpen(true);
-          setQuery("");
-          setSelectedIndex(0);
-        }}
-        className="fixed bottom-24 right-6 z-30 w-12 h-12 bg-[#5865F2] hover:bg-[#4752C4] rounded-full shadow-lg flex items-center justify-center text-white transition-all hover:scale-105 active:scale-95"
-        title="Open commands (Press /)"
-        aria-label="Open command palette"
-      >
-        <Command className="w-5 h-5" />
-      </button>
-
       <AnimatePresence>
-        {isOpen && (
+        {slashCommandOpen && (
           <>
             <div
               className="fixed inset-0 bg-black/50 z-40"
-              onClick={() => setIsOpen(false)}
+              onClick={() => setSlashCommandOpen(false)}
               aria-hidden="true"
             />
             <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              initial={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
+              animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
+              exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
               role="dialog"
               aria-modal="true"
               aria-label="Command palette"
-              className="fixed top-20 left-4 right-4 md:left-1/2 md:-translate-x-1/2 md:w-[500px] lg:w-[640px] bg-[#2B2D31] border border-[#1E1F22] rounded-lg shadow-2xl z-50 overflow-hidden"
+              className="fixed top-1/2 left-1/2 w-[90%] md:w-[500px] lg:w-[640px] bg-[#2B2D31] border border-[#1E1F22] rounded-lg shadow-2xl z-50 overflow-hidden"
             >
               <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1E1F22]">
                 <Search className="h-5 w-5 text-[#72767D]" aria-hidden="true" />
                 <input
                   ref={inputRef}
                   type="text"
-                  value={query}
+                  value={localQuery}
                   onChange={(e) => {
-                    setQuery(e.target.value);
+                    setLocalQuery(e.target.value);
                     setSelectedIndex(0);
                   }}
                   placeholder="Type a command or search..."
-                  className="flex-1 bg-transparent text-[#DCDDDE] placeholder-[#72767D] outline-none text-sm"
+                  className="flex-1 bg-transparent text-[#DCDDDE] placeholder-[#72767D] outline-none text-sm focus-visible:ring-0"
                   autoFocus
                   aria-label="Search commands"
                 />
@@ -129,8 +139,8 @@ export default function SlashCommand() {
                         key={cmd.name}
                         onClick={() => {
                           cmd.action();
-                          setIsOpen(false);
-                          setQuery("");
+                          setSlashCommandOpen(false);
+                          setSlashCommandQuery("");
                         }}
                         onMouseEnter={() => setSelectedIndex(i)}
                         role="option"
@@ -143,7 +153,7 @@ export default function SlashCommand() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium text-[#F2F3F5]">/{cmd.name}</div>
-                          <div className="text-xs text-[#B5BAC1] truncate">{cmd.description}</div>
+                          <div className="text-xs text-[#949BA4] truncate">{cmd.description}</div>
                         </div>
                         {i === selectedIndex && (
                           <ArrowRight className="h-4 w-4 text-[#72767D] flex-shrink-0" aria-hidden="true" />
@@ -152,13 +162,6 @@ export default function SlashCommand() {
                     ))}
                   </div>
                 )}
-              </div>
-
-              {/* Hint */}
-              <div className="px-4 py-2 border-t border-[#1E1F22] text-[11px] text-[#72767D] flex items-center gap-4">
-                <span><kbd className="px-1 bg-[#1E1F22] rounded">↑↓</kbd> to navigate</span>
-                <span><kbd className="px-1 bg-[#1E1F22] rounded">Enter</kbd> to select</span>
-                <span><kbd className="px-1 bg-[#1E1F22] rounded">/</kbd> to open</span>
               </div>
             </motion.div>
           </>

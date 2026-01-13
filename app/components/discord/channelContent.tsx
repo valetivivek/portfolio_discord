@@ -99,7 +99,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
                 <code className="text-[#23A559]">/resume</code> — Download Vishnu&apos;s resume<br />
                 <code className="text-[#23A559]">/projects</code> — View featured projects<br />
                 <code className="text-[#23A559]">/contact</code> — Get in touch<br />
-                <code className="text-[#23A559]">/help</code> — Show all commands
+
               </div>
             </div>
           ),
