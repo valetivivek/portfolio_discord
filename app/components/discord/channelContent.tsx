@@ -135,8 +135,6 @@ export function getChannelMessages(channelId: string): MessageData[] {
           content: (
             <div>
               Pro tip: Click on my avatar to see my full profile, or use the member list on the right to explore!
-              <br /><br />
-              <span className="text-[#B5BAC1] text-sm italic">psst... there might be some easter eggs hidden around the server 🥚</span>
             </div>
           ),
           edited: true,
