@@ -10,8 +10,11 @@ type Props = {
   onAvatarClick?: () => void;
 };
 
+import { useRelativeTime } from "../../hooks/useRelativeTime";
+
 export default function Message({ message, isGrouped = false, onAvatarClick }: Props) {
   const [showActions, setShowActions] = useState(false);
+  const relativeTime = useRelativeTime(message.timestamp);
 
   const timeString = message.timestamp.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -29,7 +32,7 @@ export default function Message({ message, isGrouped = false, onAvatarClick }: P
   // System message
   if (message.author.id === "system") {
     return (
-      <div className="flex items-center gap-2 py-1 text-[#949BA4] text-sm">
+      <div className="flex items-center gap-2 py-1 text-[#B5BAC1] text-sm">
         <span className="flex-shrink-0">→</span>
         <span>{message.content}</span>
         <span className="text-[11px] text-[#72767D]">{timeString}</span>
@@ -108,11 +111,11 @@ export default function Message({ message, isGrouped = false, onAvatarClick }: P
               OWNER
             </span>
           )}
-          <span className="text-[11px] text-[#949BA4]">
-            Today at {timeString}
+          <span className="text-[11px] text-[#B5BAC1]">
+            {relativeTime} at {timeString}
           </span>
           {message.edited && (
-            <span className="text-[10px] text-[#949BA4]">(edited)</span>
+            <span className="text-[10px] text-[#B5BAC1]">(edited)</span>
           )}
         </div>
 

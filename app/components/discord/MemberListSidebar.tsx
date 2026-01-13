@@ -1,7 +1,8 @@
 "use client";
 
 import React from "react";
-import { useDiscord } from "./DiscordApp";
+import NextImage from "next/image";
+import { useDiscord } from "../../context/DiscordContext";
 import { MEMBERS, MemberData } from "./data";
 import { Crown } from "lucide-react";
 
@@ -34,7 +35,7 @@ export default function MemberListSidebar() {
 
           return (
             <div key={name}>
-              <h3 className="text-[11px] font-semibold text-[#949BA4] uppercase mb-1 px-2">
+              <h3 className="text-[11px] font-semibold text-[#B5BAC1] uppercase mb-1 px-2">
                 {name} — {members.length}
               </h3>
               <div className="space-y-0.5">
@@ -44,15 +45,20 @@ export default function MemberListSidebar() {
                     onClick={() => setProfileModal(member)}
                     className="w-full flex items-center gap-3 px-2 py-1.5 rounded hover:bg-[#35373C] group transition-colors"
                   >
-                    {/* Avatar */}
                     <div className="relative flex-shrink-0">
                       <div
-                        className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-xs"
+                        className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-xs relative"
                         style={{ backgroundColor: member.isBot ? "#5865F2" : "#5865F2" }}
                       >
                         {member.avatar ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img src={member.avatar} alt="" className="w-8 h-8 rounded-full" />
+                          <NextImage
+                            src={member.avatar}
+                            alt={member.name}
+                            width={32}
+                            height={32}
+                            className="rounded-full"
+                            unoptimized
+                          />
                         ) : (
                           member.name.split(" ").map(n => n[0]).join("").slice(0, 2)
                         )}
@@ -66,7 +72,7 @@ export default function MemberListSidebar() {
                     {/* Info */}
                     <div className="flex-1 min-w-0 text-left">
                       <div className="flex items-center gap-1">
-                        <span className={`text-sm truncate ${member.status === "offline" ? "text-[#949BA4]" : "text-[#F2F3F5]"}`}>
+                        <span className={`text-sm truncate ${member.status === "offline" ? "text-[#B5BAC1]" : "text-[#F2F3F5]"}`}>
                           {member.name}
                         </span>
                         {member.isOwner && (
@@ -79,7 +85,7 @@ export default function MemberListSidebar() {
                         )}
                       </div>
                       {member.activity && member.status !== "offline" && (
-                        <p className="text-[11px] text-[#949BA4] truncate">
+                        <p className="text-[11px] text-[#B5BAC1] truncate">
                           {member.activity}
                         </p>
                       )}

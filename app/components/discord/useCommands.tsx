@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Hash, Code, Briefcase, FileText, Mail, Download } from "lucide-react";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 
 export type Command = {
     name: string;
@@ -75,7 +75,14 @@ export function useCommands() {
             name: "resume",
             description: "Download resume",
             icon: <Download className="w-4 h-4" />,
-            action: () => window.open("/resume/resume.pdf", "_blank")
+            action: () => {
+                const link = document.createElement('a');
+                link.href = '/resume/resume.pdf';
+                link.download = 'Vishnu_Vivek_Valeti_Resume.pdf';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
         },
     ];
 

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Hash, Search, ArrowRight, Download, FileText, Briefcase, Code, Mail, Command } from "lucide-react";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 
 type Command = {
   name: string;
@@ -69,7 +69,6 @@ export default function SlashCommand() {
 
   return (
     <>
-      {/* Floating trigger button - always visible */}
       <button
         onClick={() => {
           setIsOpen(true);
@@ -144,7 +143,7 @@ export default function SlashCommand() {
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="text-sm font-medium text-[#F2F3F5]">/{cmd.name}</div>
-                          <div className="text-xs text-[#949BA4] truncate">{cmd.description}</div>
+                          <div className="text-xs text-[#B5BAC1] truncate">{cmd.description}</div>
                         </div>
                         {i === selectedIndex && (
                           <ArrowRight className="h-4 w-4 text-[#72767D] flex-shrink-0" aria-hidden="true" />

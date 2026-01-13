@@ -4,12 +4,10 @@ import React from "react";
 import { MessageData, MEMBERS } from "./data";
 import { ExternalLink, Github, Calendar, GraduationCap, Briefcase, Download } from "lucide-react";
 
-// Helper to create member references
 const vishnu = MEMBERS.find((m) => m.id === "vishnu")!;
 const bot = MEMBERS.find((m) => m.id === "portfolio-bot")!;
 const system = { id: "system", name: "System", discriminator: "0000", status: "online" as const, roles: [] };
 
-// Embed component for rich content
 function ProjectEmbed({ title, description, tags, github, live }: {
   title: string;
   description: string;
@@ -44,7 +42,6 @@ function ProjectEmbed({ title, description, tags, github, live }: {
   );
 }
 
-// Role badge component
 function RoleBadge({ name, color }: { name: string; color: string }) {
   return (
     <span
@@ -57,7 +54,6 @@ function RoleBadge({ name, color }: { name: string; color: string }) {
   );
 }
 
-// All channel messages
 export function getChannelMessages(channelId: string): MessageData[] {
   switch (channelId) {
     case "welcome":
@@ -74,7 +70,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
               at the University of Florida. This server is designed to feel like home — explore the channels to learn about my work,
               skills, and experience.
               <br /><br />
-              <span className="text-[#949BA4]">Here&apos;s how to navigate:</span>
+              <span className="text-[#B5BAC1]">Here&apos;s how to navigate:</span>
               <div className="bg-[#2B2D31] rounded p-3 mt-2 text-sm">
                 • <span className="text-[#00A8FC]">#announcements</span> — Career milestones and updates<br />
                 • <span className="text-[#00A8FC]">#projects</span> — Featured work and case studies<br />
@@ -109,6 +105,30 @@ export function getChannelMessages(channelId: string): MessageData[] {
           ),
         },
         {
+          id: "w3-projects",
+          author: vishnu,
+          timestamp: new Date(Date.now() - 3350000),
+          content: (
+            <div>
+              <span className="text-[#B5BAC1]">Check out a couple of my featured projects:</span>
+              <div className="grid gap-2 mt-2">
+                <ProjectEmbed
+                  title="JobScoop"
+                  description="Full-stack job search platform with advanced filtering and dashboards."
+                  tags={["Go", "React", "Docker"]}
+                  github="https://github.com/crazyotakuu/JobScoop"
+                />
+                <ProjectEmbed
+                  title="Comite"
+                  description="Sleek manga reading platform with mobile-first design."
+                  tags={["React", "Tailwind", "Vite"]}
+                  github="https://github.com/valetivivek/Comite"
+                />
+              </div>
+            </div>
+          ),
+        },
+        {
           id: "w4",
           author: vishnu,
           timestamp: new Date(Date.now() - 3300000),
@@ -116,7 +136,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
             <div>
               Pro tip: Click on my avatar to see my full profile, or use the member list on the right to explore!
               <br /><br />
-              <span className="text-[#949BA4] text-sm italic">psst... there might be some easter eggs hidden around the server 🥚</span>
+              <span className="text-[#B5BAC1] text-sm italic">psst... there might be some easter eggs hidden around the server 🥚</span>
             </div>
           ),
           edited: true,
@@ -199,7 +219,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
               <br /><br />
               When I&apos;m not coding, you&apos;ll find me exploring new technologies, reading manga, or thinking about distributed systems.
               <br /><br />
-              <span className="text-[#949BA4] text-sm">📍 Gainesville, FL | 💻 Open to work</span>
+              <span className="text-[#B5BAC1] text-sm">📍 Gainesville, FL | 💻 Open to work</span>
             </div>
           ),
         },
@@ -215,7 +235,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
             <div>
               <span className="text-[#F2F3F5] font-bold">🎉 Current Role: Machine Learning Engineer Intern</span>
               <div className="bg-[#2B2D31] rounded p-3 mt-2">
-                <div className="flex items-center gap-2 text-sm text-[#949BA4] mb-2">
+                <div className="flex items-center gap-2 text-sm text-[#B5BAC1] mb-2">
                   <Briefcase className="w-4 h-4" />
                   <span>ReplyQuick LLC</span>
                   <span>•</span>
@@ -240,7 +260,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
             <div>
               <span className="text-[#F2F3F5] font-bold">🎓 Graduate Student Assistant</span>
               <div className="bg-[#2B2D31] rounded p-3 mt-2">
-                <div className="flex items-center gap-2 text-sm text-[#949BA4] mb-2">
+                <div className="flex items-center gap-2 text-sm text-[#B5BAC1] mb-2">
                   <GraduationCap className="w-4 h-4" />
                   <span>University of Florida</span>
                   <span>•</span>
@@ -265,7 +285,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
             <div>
               <span className="text-[#F2F3F5] font-bold">💻 Software Development Program Apprentice</span>
               <div className="bg-[#2B2D31] rounded p-3 mt-2">
-                <div className="flex items-center gap-2 text-sm text-[#949BA4] mb-2">
+                <div className="flex items-center gap-2 text-sm text-[#B5BAC1] mb-2">
                   <Briefcase className="w-4 h-4" />
                   <span>Vignan University</span>
                   <span>•</span>
@@ -294,7 +314,7 @@ export function getChannelMessages(channelId: string): MessageData[] {
             <div>
               Here are some of my featured projects! Each one represents a different challenge I&apos;ve tackled.
               <br /><br />
-              <span className="text-[#949BA4] text-sm">Click on any project to learn more, or use <code className="bg-[#1E1F22] px-1 py-0.5 rounded">/projects</code> for the full list.</span>
+              <span className="text-[#B5BAC1] text-sm">Click on any project to learn more, or use <code className="bg-[#1E1F22] px-1 py-0.5 rounded">/projects</code> for the full list.</span>
             </div>
           ),
         },
@@ -449,12 +469,12 @@ export function getChannelMessages(channelId: string): MessageData[] {
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-3 gap-2">
                   <div>
                     <div className="font-semibold text-[#F2F3F5] text-lg">M.S. in Computer Science</div>
-                    <div className="flex items-center gap-2 text-sm text-[#949BA4]">
+                    <div className="flex items-center gap-2 text-sm text-[#B5BAC1]">
                       <GraduationCap className="w-4 h-4" />
                       <span>University of Florida</span>
                     </div>
                   </div>
-                  <div className="sm:text-right text-sm text-[#949BA4]">
+                  <div className="sm:text-right text-sm text-[#B5BAC1]">
                     <div>Aug 2024 – May 2026</div>
                     <div className="text-[#23A559] font-semibold">GPA: 3.83</div>
                   </div>
@@ -479,12 +499,12 @@ export function getChannelMessages(channelId: string): MessageData[] {
                 <div className="flex flex-col sm:flex-row sm:items-start justify-between mb-3 gap-2">
                   <div>
                     <div className="font-semibold text-[#F2F3F5] text-lg">B.Tech in Information Technology</div>
-                    <div className="flex items-center gap-2 text-sm text-[#949BA4]">
+                    <div className="flex items-center gap-2 text-sm text-[#B5BAC1]">
                       <GraduationCap className="w-4 h-4" />
                       <span>Vignan University</span>
                     </div>
                   </div>
-                  <div className="sm:text-right text-sm text-[#949BA4]">
+                  <div className="sm:text-right text-sm text-[#B5BAC1]">
                     <div>Aug 2020 – May 2024</div>
                     <div className="text-[#23A559] font-semibold">GPA: 3.43</div>
                   </div>

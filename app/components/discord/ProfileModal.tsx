@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import NextImage from "next/image";
 import { motion } from "framer-motion";
 import { MemberData } from "./data";
 import { X, Pencil, Crown, Shield, Verified } from "lucide-react";
@@ -65,21 +66,24 @@ export default function ProfileModal({ member, onClose }: Props) {
           </button>
         </div>
 
-        {/* Avatar */}
         <div className="relative px-4 -mt-[50px] mb-3">
           <div className="relative inline-block">
             <div
-              className="w-[94px] h-[94px] rounded-full border-[6px] border-[#232428] flex items-center justify-center text-white font-bold text-2xl overflow-hidden"
+              className="w-[94px] h-[94px] rounded-full border-[6px] border-[#232428] flex items-center justify-center text-white font-bold text-2xl overflow-hidden relative"
               style={{ backgroundColor: isBot ? "#5865F2" : "#5865F2" }}
             >
               {member.avatar ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={member.avatar} alt="" className="w-full h-full object-cover" />
+                <NextImage
+                  src={member.avatar}
+                  alt={member.name}
+                  fill
+                  className="object-cover"
+                  unoptimized
+                />
               ) : (
                 member.name.split(" ").map(n => n[0]).join("").slice(0, 2)
               )}
             </div>
-            {/* Status indicator */}
             <div
               className="absolute bottom-1 right-1 w-7 h-7 rounded-full border-[5px] border-[#232428]"
               style={{ backgroundColor: "#23A559" }}

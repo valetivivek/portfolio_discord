@@ -41,7 +41,7 @@ export default function MobileNav() {
         <div className="lg:hidden fixed inset-0 z-40 bg-[#2B2D31] border-r border-[#1E1F22] overflow-y-auto">
           <div className="p-4 border-b border-[#1E1F22]">
             <h2 className="text-[#F2F3F5] font-semibold text-lg">Vishnu&apos;s Server</h2>
-            <p className="text-xs text-[#949BA4] mt-1">Welcome to my portfolio!</p>
+            <p className="text-xs text-[#B5BAC1] mt-1">Welcome to my portfolio!</p>
           </div>
           
           <nav className="p-2 space-y-1">
@@ -67,7 +67,7 @@ export default function MobileNav() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-[#F2F3F5] truncate">Vishnu Vivek</p>
-                <p className="text-xs text-[#949BA4] truncate">Online</p>
+                <p className="text-xs text-[#B5BAC1] truncate">Online</p>
               </div>
             </div>
           </div>

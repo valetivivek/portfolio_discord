@@ -8,7 +8,6 @@ export default function ServerListSidebar() {
 
   return (
     <div className="w-[72px] bg-[#1E1F22] flex flex-col items-center py-3 gap-2 flex-shrink-0 hidden md:flex">
-      {/* Home/DM button */}
       <div className="relative group">
         <motion.button
           whileHover={{ scale: 1.1 }}
@@ -23,7 +22,6 @@ export default function ServerListSidebar() {
           <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-0 group-hover:h-5 bg-white rounded-r-full transition-all duration-200" />
         </motion.button>
 
-        {/* Tooltip */}
         {hoveredServer === "home" && (
           <motion.div
             initial={{ opacity: 0, x: -10 }}

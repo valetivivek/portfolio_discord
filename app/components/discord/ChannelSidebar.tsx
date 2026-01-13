@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 import { CHANNELS } from "./data";
 import { Hash, Volume2, Megaphone, BookOpen, Lock, ChevronDown, ChevronRight, Settings, UserPlus, Mic, Headphones, X, Menu } from "lucide-react";
 
@@ -41,7 +41,6 @@ export default function ChannelSidebar() {
 
   const ChannelListContent = () => (
     <>
-      {/* Server header */}
       <button
         onClick={() => setServerDropdownOpen(true)}
         className="h-12 px-4 flex items-center justify-between border-b border-[#1F2023] shadow-sm hover:bg-[#35373C] transition-colors group flex-shrink-0"
@@ -73,7 +72,7 @@ export default function ChannelSidebar() {
             <div key={category} className="mb-4">
               <button
                 onClick={() => toggleCategory(category)}
-                className="flex items-center gap-0.5 px-0.5 mb-1 text-[11px] font-semibold text-[#949BA4] uppercase tracking-wide hover:text-[#DBDEE1] transition-colors w-full text-left group"
+                className="flex items-center gap-0.5 px-0.5 mb-1 text-[11px] font-semibold text-[#B5BAC1] uppercase tracking-wide hover:text-[#DBDEE1] transition-colors w-full text-left group"
               >
                 {isCollapsed ? (
                   <ChevronRight className="w-3 h-3" />
@@ -96,7 +95,7 @@ export default function ChannelSidebar() {
                         }}
                         className={`w-full flex items-center gap-1.5 px-2 py-1.5 rounded group/channel ${isActive
                           ? "bg-[#404249] text-[#F2F3F5]"
-                          : "text-[#949BA4] hover:text-[#DBDEE1] hover:bg-[#35373C]"
+                          : "text-[#B5BAC1] hover:text-[#DBDEE1] hover:bg-[#35373C]"
                           }`}
                       >
                         {getChannelIcon(channel.type, channel.locked)}
@@ -177,6 +176,17 @@ export default function ChannelSidebar() {
         <Menu className="w-6 h-6" />
       </button>
 
+      {/* Swipe Trigger Area - Always visible */}
+      <motion.div
+        className="md:hidden fixed top-0 bottom-0 left-0 w-8 z-40"
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        onDragEnd={(e, info) => {
+          if (info.offset.x > 50) setMobileOpen(true);
+        }}
+      />
+
       {/* Mobile sidebar */}
       <AnimatePresence>
         {mobileOpen && (
@@ -193,6 +203,12 @@ export default function ChannelSidebar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={{ left: 0.5, right: 0 }}
+              onDragEnd={(e, info) => {
+                if (info.offset.x < -50) setMobileOpen(false);
+              }}
               className="md:hidden fixed left-0 top-0 bottom-0 w-72 bg-[#2B2D31] z-50 flex flex-col"
             >
               <button

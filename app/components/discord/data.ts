@@ -1,4 +1,3 @@
-// Types
 export type ChannelType = "text" | "voice" | "announcement" | "rules" | "forum";
 
 export type ChannelData = {
@@ -37,8 +36,8 @@ export type MessageData = {
   pinned?: boolean;
 };
 
-// Channel data
 export const CHANNELS: ChannelData[] = [
+
   { id: "welcome", name: "welcome", type: "text", category: "START HERE", description: "Welcome to the server! Start here." },
   { id: "rules", name: "rules", type: "rules", category: "START HERE", description: "Server rules and guidelines" },
   { id: "introductions", name: "introductions", type: "text", category: "START HERE", description: "Introduce yourself!" },
@@ -50,7 +49,6 @@ export const CHANNELS: ChannelData[] = [
   { id: "lounge", name: "lounge", type: "voice", category: "VOICE", description: "Hang out and chat" },
 ];
 
-// Member data
 export const MEMBERS: MemberData[] = [
   {
     id: "vishnu",

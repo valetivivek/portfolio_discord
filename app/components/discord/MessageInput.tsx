@@ -106,13 +106,12 @@ export default function MessageInput({ channel }: Props) {
       }
     }
 
-    // Clear input - this is a portfolio, no actual messaging
+    // Clear input
     setMessage("");
   };
 
   return (
     <div className="relative">
-      {/* Command Autocomplete Popover */}
       <AnimatePresence>
         {showCommands && (
           <motion.div
@@ -121,7 +120,7 @@ export default function MessageInput({ channel }: Props) {
             exit={{ opacity: 0, y: 10 }}
             className="absolute bottom-full left-4 right-4 mb-2 bg-[#2B2D31] rounded-lg shadow-2xl border border-[#1E1F22] overflow-hidden z-50 max-h-[300px] overflow-y-auto"
           >
-            <div className="px-3 py-2 text-[11px] font-bold text-[#949BA4] uppercase tracking-wide border-b border-[#1F2023]">
+            <div className="px-3 py-2 text-[11px] font-bold text-[#B5BAC1] uppercase tracking-wide border-b border-[#1F2023]">
               Commands matching /{message.slice(1)}
             </div>
             {filteredCommands.map((cmd, i) => (

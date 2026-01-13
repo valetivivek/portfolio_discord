@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 import { MessageData, MemberData } from "./data";
 import Message from "./Message";
 import TypingIndicatorNew from "./TypingIndicatorNew";
@@ -25,7 +25,7 @@ export default function MessageList({ channelId }: Props) {
     // Simulate loading messages
     const loadTimer = setTimeout(() => {
       const channelMessages = getChannelMessages(channelId);
-      
+
       // Stagger message appearance
       channelMessages.forEach((msg, i) => {
         setTimeout(() => {

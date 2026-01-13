@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 import {
   Rocket,
   UserPlus,
@@ -39,7 +39,6 @@ export default function ServerDropdown() {
 
   return (
     <>
-      {/* Backdrop */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -48,7 +47,6 @@ export default function ServerDropdown() {
         onClick={() => setServerDropdownOpen(false)}
       />
 
-      {/* Dropdown */}
       <motion.div
         initial={{ opacity: 0, y: -10, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}

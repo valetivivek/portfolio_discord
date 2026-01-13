@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useEffect } from "react";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 import { CHANNELS } from "./data";
 import ChannelHeaderBar from "./ChannelHeaderBar";
 import MessageList from "./MessageList";
@@ -63,7 +63,7 @@ export default function ChatArea() {
         {/* Divider with date */}
         <div className="flex items-center gap-2 px-4 mb-4">
           <div className="flex-1 h-px bg-[#3F4147]" />
-          <span className="text-[11px] font-semibold text-[#949BA4]">January 12, 2026</span>
+          <span className="text-[11px] font-semibold text-[#B5BAC1]">January 12, 2026</span>
           <div className="flex-1 h-px bg-[#3F4147]" />
         </div>
 

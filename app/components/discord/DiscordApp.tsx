@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ServerListSidebar from "./ServerListSidebar";
 import ChannelSidebar from "./ChannelSidebar";
@@ -9,41 +9,17 @@ import MemberListSidebar from "./MemberListSidebar";
 import ProfileModal from "./ProfileModal";
 import ServerDropdown from "./ServerDropdown";
 import SlashCommand from "./SlashCommand";
-import { MemberData } from "./data";
+import { DiscordProvider, useDiscord } from "../../context/DiscordContext";
 
-// Context
-type DiscordContextType = {
-  activeChannel: string;
-  setActiveChannel: (id: string) => void;
-  showMemberList: boolean;
-  setShowMemberList: (show: boolean) => void;
-  profileModal: MemberData | null;
-  setProfileModal: (member: MemberData | null) => void;
-  serverDropdownOpen: boolean;
-  setServerDropdownOpen: (open: boolean) => void;
-};
-
-const DiscordContext = createContext<DiscordContextType | null>(null);
-export const useDiscord = () => {
-  const ctx = useContext(DiscordContext);
-  if (!ctx) throw new Error("useDiscord must be used within DiscordProvider");
-  return ctx;
-};
-
-export default function DiscordApp() {
-  const [activeChannel, setActiveChannel] = useState("welcome");
-  const [showMemberList, setShowMemberList] = useState(true);
-  const [profileModal, setProfileModal] = useState<MemberData | null>(null);
-  const [serverDropdownOpen, setServerDropdownOpen] = useState(false);
+function DiscordLayout() {
+  const { showMemberList, profileModal, setProfileModal, serverDropdownOpen } = useDiscord();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate Discord loading
     const timer = setTimeout(() => setIsLoading(false), 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Loading screen
   if (isLoading) {
     return (
       <div className="fixed inset-0 bg-[#36393F] flex items-center justify-center z-50">
@@ -66,60 +42,47 @@ export default function DiscordApp() {
   }
 
   return (
-    <DiscordContext.Provider
-      value={{
-        activeChannel,
-        setActiveChannel,
-        showMemberList,
-        setShowMemberList,
-        profileModal,
-        setProfileModal,
-        serverDropdownOpen,
-        setServerDropdownOpen,
-      }}
-    >
-      <div className="h-screen flex overflow-hidden bg-[#313338]">
-        {/* Server list */}
-        <ServerListSidebar />
+    <div className="h-screen flex overflow-hidden bg-[#313338]">
+      <ServerListSidebar />
+      <ChannelSidebar />
 
-        {/* Channel sidebar */}
-        <ChannelSidebar />
-
-        {/* Main content */}
-        <div className="flex-1 flex flex-col min-w-0">
-          <ChatArea />
-        </div>
-
-        {/* Member list */}
-        <AnimatePresence>
-          {showMemberList && (
-            <motion.div
-              initial={{ width: 0, opacity: 0 }}
-              animate={{ width: 240, opacity: 1 }}
-              exit={{ width: 0, opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="flex-shrink-0 overflow-hidden hidden lg:block"
-            >
-              <MemberListSidebar />
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Profile modal */}
-        <AnimatePresence>
-          {profileModal && (
-            <ProfileModal member={profileModal} onClose={() => setProfileModal(null)} />
-          )}
-        </AnimatePresence>
-
-        {/* Server dropdown */}
-        <AnimatePresence>
-          {serverDropdownOpen && <ServerDropdown />}
-        </AnimatePresence>
-
-        {/* Slash command palette */}
-        <SlashCommand />
+      <div className="flex-1 flex flex-col min-w-0">
+        <ChatArea />
       </div>
-    </DiscordContext.Provider>
+
+      <AnimatePresence>
+        {showMemberList && (
+          <motion.div
+            initial={{ width: 0, opacity: 0 }}
+            animate={{ width: 240, opacity: 1 }}
+            exit={{ width: 0, opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex-shrink-0 overflow-hidden hidden lg:block"
+          >
+            <MemberListSidebar />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {profileModal && (
+          <ProfileModal member={profileModal} onClose={() => setProfileModal(null)} />
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {serverDropdownOpen && <ServerDropdown />}
+      </AnimatePresence>
+
+      <SlashCommand />
+    </div>
+  );
+}
+
+export default function DiscordApp() {
+  return (
+    <DiscordProvider>
+      <DiscordLayout />
+    </DiscordProvider>
   );
 }

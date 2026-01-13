@@ -1,149 +1,84 @@
 # Vishnu Vivek Valeti — Portfolio
 
-Minimal, professional portfolio built with Next.js (App Router), TypeScript, Tailwind CSS, and Framer Motion. Deployed on Vercel. Accessible, fast, and recruiter‑friendly.
+![Project Banner](https://img.shields.io/badge/Status-Active-success?style=for-the-badge) ![Tech Stack](https://img.shields.io/badge/Stack-Next.js_14_•_TypeScript_•_Tailwind-blue?style=for-the-badge)
 
-[![Demo](https://img.shields.io/badge/demo-Live-success.svg)](https://valetiportfolio.vercel.app/)
+A **unique, interactive portfolio experience** that reimagines the developer identity through the familiar interface of Discord. Built with performance, accessibility, and attention to detail in mind, this project demonstrates advanced frontend engineering skills using modern web technologies.
 
----
+[**View Live Demo**](https://valetiportfolio.vercel.app/)
 
-## ✨ Introduction
+## ✨ Key Features
 
-This is my personal portfolio website showcasing projects, experience, and contact information. It features a "Zen Mode" aesthetic with a high-contrast dark theme (charcoal/orange) and a clean, readable light theme (cream/beige). It focuses on clarity, typography, subtle animations, and strong accessibility.
+- **Discord Simulation**: A pixel-perfect recreation of the Discord UI, including servers, channels, and message interactions.
+- **Interactive Slash Commands**: Type `/` to access a command palette for navigation (`/projects`, `/resume`, `/contact`) or utility (`/clear`).
+- **Dynamic Content Rendering**: Channel-based routing that loads content (About, Experience, Projects) dynamically without full page refreshes.
+- **Keyboard Navigation**: Full keyboard support for slash commands and message input, mimicking desktop app behavior.
+- **Responsive Design**: Mobile-friendly sidebar implementation with smooth transitions and touch-friendly interactions.
+- **Optimized Performance**: Built on Next.js App Router with React Server Components for fast initial loads and SEO content.
 
-- Framework: Next.js (App Router) + TypeScript
-- Styling: Tailwind CSS, Zen Theme palette (Charcoal/Cream/Orange)
-- Motion: Framer Motion (reduced motion respected)
-- Deployment: Vercel (Ready)
-- A11y: Semantic HTML, focus-visible, alt text, keyboard-friendly nav
+## 🛠️ Technology Stack
 
----
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Animation**: Framer Motion
+- **Icons**: Lucide React
+- **Deployment**: Vercel
 
-## 🗂 Project Structure
+## 🚀 Quick Start
 
-```bash
-.
-├─ app/
-│  ├─ api/
-│  │  └─ contact/route.ts        
-│  ├─ contact/page.tsx           
-│  ├─ experience/page.tsx        
-│  ├─ projects/page.tsx          
-│  ├─ resume/page.tsx            
-│  ├─ components/
-│  │  ├─ About.tsx               
-│  │  ├─ EducationCard.tsx
-│  │  ├─ ExperienceTimeline.tsx
-│  │  ├─ Footer.tsx
-│  │  ├─ Hero.tsx
-│  │  └─ ProjectCard.tsx         
-│  ├─ layout.tsx                 
-│  ├─ page.tsx                   
-│  ├─ robots.txt                 
-│  └─ sitemap.ts                 
-├─ content/
-│  ├─ about.ts                   
-│  └─ projects.ts               
-├─ lib/
-│  └─ motion.ts                  
-├─ public/
-│  └─ resume/
-│     ├─ resume.pdf              
-│     └─ README.txt
-├─ styles / config
-│  ├─ app/globals.css            
-│  ├─ tailwind.config.ts
-│  └─ postcss.config.mjs
-├─ next.config.mjs               
-├─ vercel.json                   
-├─ package.json
-├─ tsconfig.json
-└─ types/nodemailer.d.ts         
-```
+### Prerequisites
+- Node.js 18+
+- npm
 
----
-
-## 🚀 Installation
+### Installation
 
 ```bash
-# Clone the repo
-git clone https://github.com/<your-username>/<your-repo>.git
-cd <your-repo>
+# Clone the repository
+git clone https://github.com/valetivivek/portfolio_discord.git
+
+# Navigate to project directory
+cd portfolio_discord
 
 # Install dependencies
 npm install
 
-# Start dev server
+# Start development server
 npm run dev
-
-# Build & run production locally
-npm run build
-npm start
 ```
 
----
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## 📦 Usage
+## 📂 Project Structure
 
-- Home, Projects, Experience, Contact, and Resume are ready out-of-the-box.
-- Update your resume at `public/resume/resume.pdf` to enable preview at `/resume`.
-- Update About copy in `content/about.ts`.
-- Update projects in `content/projects.ts` (Home uses featured projects; Projects page shows all).
-
----
-
-## ☁️ Deployment (Vercel)
-
-Dashboard:
-1. Push repo to GitHub.
-2. Import project in Vercel (Next.js is auto-detected).
-3. Add env vars for Preview & Production (see Configuration).
-4. Deploy and set your custom domain.
-
-CLI (Windows PowerShell):
-```powershell
-npm i -g vercel
-vercel login
-vercel link --confirm
-
-# Preview envs
-vercel env add NEXT_PUBLIC_SITE_URL preview
-vercel env add CONTACT_TO preview
-vercel env add CONTACT_FROM preview
-# Optional: vercel env add RESEND_API_KEY preview
-# Optional SMTP: vercel env add SMTP_HOST/SMTP_PORT/SMTP_USER/SMTP_PASS preview
-
-# Production envs
-vercel env add NEXT_PUBLIC_SITE_URL production
-vercel env add CONTACT_TO production
-vercel env add CONTACT_FROM production
-# Optional: vercel env add RESEND_API_KEY production
-# Optional SMTP: vercel env add SMTP_HOST/SMTP_PORT/SMTP_USER/SMTP_PASS production
-
-# Deploy
-vercel --prod=false --yes   # Preview
-vercel --prod --confirm     # Production
+```bash
+├── app/
+│   ├── components/         # Reusable UI components
+│   │   └── discord/        # Discord-specific UI (Sidebar, Chat, Messages)
+│   ├── context/            # React Context for app state (DiscordContext)
+│   └── layout.tsx          # Root layout and metadata
+├── content/                # Static content data (Projects, Experience)
+├── public/                 # Static assets (Resume, Images)
+└── styles/                 # Global styles and Tailwind configuration
 ```
 
-Notes:
-- `vercel.json` adds security headers (X-Frame-Options, X-Content-Type-Options).
-- `next.config.mjs` enables optimizeCss and modern image formats.
-- `package.json` engines set Node >= 18.
+## ☁️ Deployment
+
+This project is optimized for deployment on **Vercel**.
+
+1. Push your changes to GitHub.
+2. Import the project into Vercel.
+3. Vercel will automatically detect the Next.js framework and configure the build settings.
+4. Deploy!
+
+## 🧩 Customization
+
+- **Content**: Update `app/components/discord/data.ts` to modify channels, server name, and user details.
+- **Profile**: Edit `app/components/discord/ProfileModal.tsx` to customize the user profile popup.
+- **Theme**: Colors are defined in `tailwind.config.ts` using Discord's color palette (e.g., `#313338`, `#5865F2`).
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
 
 ---
-
-## 🧪 Features & Endpoints
-
-- `/api/contact` (POST): Validates input and sends mail via Resend or SMTP when configured.
-  - If no provider configured, returns `503` with guidance; UI shows a visible mailto fallback.
-- `/resume`: Embeds `public/resume/resume.pdf` and provides a Download button. Shows a helpful empty state if missing.
-
----
-
-## 📬 Contact
-
-- Author: **Vishnu Vivek Valeti**
-- Email: **vivekvaleti7053@gmail.com**
-- LinkedIn: `https://www.linkedin.com/in/valetivishnuvivek/`
-- GitHub: `https://github.com/valetivivek`
-
----
+*Designed and built by Vishnu Vivek Valeti.*

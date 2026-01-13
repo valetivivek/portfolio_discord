@@ -1,9 +1,9 @@
 "use client";
 
 import React from "react";
-import { useDiscord } from "./DiscordApp";
+import { useDiscord } from "../../context/DiscordContext";
 import { ChannelData } from "./data";
-import { Hash, Volume2, Megaphone, BookOpen, Bell, BellOff, Pin, Users, Search, Inbox, HelpCircle } from "lucide-react";
+import { Hash, Volume2, Megaphone, BookOpen, Bell, BellOff, Pin, Users, Search, Inbox, HelpCircle, Download } from "lucide-react";
 
 type Props = {
   channel: ChannelData;
@@ -24,14 +24,13 @@ export default function ChannelHeaderBar({ channel }: Props) {
 
   return (
     <div className="h-12 bg-[#313338] border-b border-[#1F2023] px-4 flex items-center justify-between flex-shrink-0 shadow-sm">
-      {/* Left side */}
       <div className="flex items-center gap-2 min-w-0 pl-10 md:pl-0">
         {getChannelIcon()}
         <h1 className="text-[#F2F3F5] font-semibold text-base">{channel.name}</h1>
         {channel.description && (
           <>
             <div className="w-px h-6 bg-[#3F4147] mx-2 hidden md:block" />
-            <span className="text-sm text-[#949BA4] truncate hidden md:block">{channel.description}</span>
+            <span className="text-sm text-[#B5BAC1] truncate hidden md:block">{channel.description}</span>
           </>
         )}
       </div>
@@ -84,7 +83,7 @@ export default function ChannelHeaderBar({ channel }: Props) {
           <input
             type="text"
             placeholder="Search"
-            className="w-36 h-6 bg-[#1E1F22] rounded px-1.5 text-sm text-[#DBDEE1] placeholder-[#949BA4] outline-none focus:w-56 transition-all"
+            className="w-36 h-6 bg-[#1E1F22] rounded px-1.5 text-sm text-[#DBDEE1] placeholder-[#B5BAC1] outline-none focus:w-56 transition-all"
             onKeyDown={(e) => e.key === 'Enter' && alert("Search functionality coming soon! Try /commands instead. 🔍")}
           />
         </div>
@@ -96,6 +95,22 @@ export default function ChannelHeaderBar({ channel }: Props) {
           title="Inbox"
         >
           <Inbox className="w-6 h-6" />
+        </button>
+
+        {/* Download Resume - New Feature */}
+        <button
+          onClick={() => {
+            const link = document.createElement('a');
+            link.href = '/resume/resume.pdf';
+            link.download = 'Vishnu_Vivek_Valeti_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }}
+          className="p-2 rounded hover:bg-[#3A3C41] text-[#23A559] hover:text-[#2dc76d] transition-colors hidden md:block"
+          title="Download Resume"
+        >
+          <Download className="w-6 h-6" />
         </button>
 
         {/* Help */}
