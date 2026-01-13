@@ -139,6 +139,7 @@ export default function ChannelSidebar() {
         </div>
         <div className="flex items-center gap-1">
           <button
+            onClick={() => alert("Microphone is enabled! (Just kidding, it's a static site) 🎤")}
             className="p-1.5 rounded hover:bg-[#3F4147] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
             aria-label="Mute (decorative)"
             title="It's just a portfolio! 🎤"
@@ -146,6 +147,7 @@ export default function ChannelSidebar() {
             <Mic className="w-5 h-5" />
           </button>
           <button
+            onClick={() => alert("Sound is on! 🎧")}
             className="p-1.5 rounded hover:bg-[#3F4147] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
             aria-label="Deafen (decorative)"
             title="No voice chat here 🎧"
@@ -153,6 +155,7 @@ export default function ChannelSidebar() {
             <Headphones className="w-5 h-5" />
           </button>
           <button
+            onClick={() => alert("Settings menu is under construction ⚙️")}
             className="p-1.5 rounded hover:bg-[#3F4147] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
             aria-label="User settings (decorative)"
             title="Just for show ⚙️"

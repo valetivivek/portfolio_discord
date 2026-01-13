@@ -12,6 +12,8 @@ type Command = {
   action: () => void;
 };
 
+import { useCommands } from "./useCommands";
+
 export default function SlashCommand() {
   const { setActiveChannel } = useDiscord();
   const [isOpen, setIsOpen] = useState(false);
@@ -19,44 +21,7 @@ export default function SlashCommand() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const commands: Command[] = [
-    {
-      name: "welcome",
-      description: "Jump to welcome channel",
-      icon: <Hash className="w-4 h-4" />,
-      action: () => setActiveChannel("welcome")
-    },
-    {
-      name: "projects",
-      description: "View all projects",
-      icon: <Code className="w-4 h-4" />,
-      action: () => setActiveChannel("projects")
-    },
-    {
-      name: "experience",
-      description: "View work experience",
-      icon: <Briefcase className="w-4 h-4" />,
-      action: () => setActiveChannel("announcements")
-    },
-    {
-      name: "skills",
-      description: "View skills and roles",
-      icon: <FileText className="w-4 h-4" />,
-      action: () => setActiveChannel("skills")
-    },
-    {
-      name: "contact",
-      description: "Get in touch",
-      icon: <Mail className="w-4 h-4" />,
-      action: () => setActiveChannel("contact")
-    },
-    {
-      name: "resume",
-      description: "Download resume",
-      icon: <Download className="w-4 h-4" />,
-      action: () => window.open("/resume/resume.pdf", "_blank")
-    },
-  ];
+  const commands = useCommands();
 
   const filteredCommands = commands.filter(cmd =>
     cmd.name.toLowerCase().includes(query.toLowerCase()) ||

@@ -39,12 +39,12 @@ export default function ProfileModal({ member, onClose }: Props) {
         onClick={onClose}
       />
 
-      {/* Modal */}
+      {/* Modal - positioned beside member list */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] max-w-[95vw] bg-[#232428] rounded-lg shadow-2xl z-50 overflow-hidden"
+        initial={{ opacity: 0, scale: 0.95, x: 20 }}
+        animate={{ opacity: 1, scale: 1, x: 0 }}
+        exit={{ opacity: 0, scale: 0.95, x: 20 }}
+        className="fixed right-[260px] top-16 w-[340px] max-w-[95vw] bg-[#232428] rounded-lg shadow-2xl z-50 overflow-hidden max-h-[calc(100vh-100px)] overflow-y-auto"
       >
         {/* Banner - Gradient for owner */}
         <div

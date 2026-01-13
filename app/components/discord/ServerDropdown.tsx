@@ -80,7 +80,7 @@ export default function ServerDropdown() {
                 }
                 setServerDropdownOpen(false);
               }}
-              className="w-full flex items-center gap-2 px-2.5 py-1.5 mx-1 rounded text-sm transition-colors hover:bg-[#5865F2] hover:text-white text-[#B5BAC1]"
+              className="w-full flex items-center gap-2 px-2.5 py-1.5 mx-1 rounded text-sm hover:bg-[#5865F2] text-[#B5BAC1] hover:text-white transition-colors duration-100"
               style={{ width: "calc(100% - 8px)" }}
             >
               <Icon

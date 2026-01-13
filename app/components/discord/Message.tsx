@@ -62,7 +62,7 @@ export default function Message({ message, isGrouped = false, onAvatarClick }: P
   // Full message
   return (
     <div
-      className="flex gap-4 py-1 mt-4 hover:bg-[#2E3035] group relative px-0"
+      className="flex gap-4 py-1.5 mt-3 hover:bg-[#2E3035] group relative px-0"
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
     >
@@ -132,16 +132,32 @@ function MessageActions({ show }: { show: boolean }) {
 
   return (
     <div className="absolute -top-4 right-4 bg-[#313338] border border-[#1E1F22] rounded shadow-lg flex items-center">
-      <button className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors" title="Add Reaction">
+      <button
+        onClick={() => alert("Reactions coming soon! 👍")}
+        className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
+        title="Add Reaction"
+      >
         <Smile className="w-5 h-5" />
       </button>
-      <button className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors" title="Reply">
+      <button
+        onClick={() => alert("This is a static portfolio, but feel free to email me! 📧")}
+        className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
+        title="Reply"
+      >
         <Reply className="w-5 h-5" />
       </button>
-      <button className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors" title="Create Thread">
+      <button
+        onClick={() => alert("Threads are not enabled here! 🧵")}
+        className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
+        title="Create Thread"
+      >
         <LinkIcon className="w-5 h-5" />
       </button>
-      <button className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors" title="More">
+      <button
+        onClick={() => alert("More options... eventually! ⚙️")}
+        className="p-1.5 hover:bg-[#3A3C41] text-[#B5BAC1] hover:text-[#DBDEE1] transition-colors"
+        title="More"
+      >
         <MoreHorizontal className="w-5 h-5" />
       </button>
     </div>
