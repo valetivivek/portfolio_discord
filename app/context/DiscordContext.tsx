@@ -20,8 +20,8 @@ type DiscordContextType = {
 
 const DiscordContext = createContext<DiscordContextType | null>(null);
 
-export function DiscordProvider({ children }: { children: React.ReactNode }) {
-    const [activeChannel, setActiveChannel] = useState("welcome");
+export function DiscordProvider({ children, initialChannel = "welcome" }: { children: React.ReactNode; initialChannel?: string }) {
+    const [activeChannel, setActiveChannel] = useState(initialChannel);
     const [showMemberList, setShowMemberList] = useState(true);
     const [profileModal, setProfileModal] = useState<MemberData | null>(null);
     const [serverDropdownOpen, setServerDropdownOpen] = useState(false);

@@ -6,12 +6,14 @@ import { CHANNELS } from "./data";
 import ChannelHeaderBar from "./ChannelHeaderBar";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
+import ChannelWelcome from "./ChannelWelcome";
 import { Hash, Volume2, Megaphone, BookOpen } from "lucide-react";
 
 export default function ChatArea() {
   const { activeChannel } = useDiscord();
   const channel = CHANNELS.find((c) => c.id === activeChannel);
   const scrollRef = useRef<HTMLDivElement>(null);
+
 
   useEffect(() => {
     // Scroll to bottom on channel change
@@ -20,14 +22,11 @@ export default function ChatArea() {
     }
   }, [activeChannel]);
 
-  const getChannelIcon = () => {
-    switch (channel?.type) {
-      case "voice": return <Volume2 className="w-6 h-6 text-[#80848E]" />;
-      case "announcement": return <Megaphone className="w-6 h-6 text-[#80848E]" />;
-      case "rules": return <BookOpen className="w-6 h-6 text-[#80848E]" />;
-      default: return <Hash className="w-6 h-6 text-[#80848E]" />;
+  useEffect(() => {
+    if (channel) {
+      document.title = `Vishnu | #${channel.name}`;
     }
-  };
+  }, [channel]);
 
   if (!channel) return null;
 
@@ -48,17 +47,7 @@ export default function ChatArea() {
         }}
       >
         {/* Channel welcome */}
-        <div className="px-4 pt-6 pb-4">
-          <div className="w-[68px] h-[68px] rounded-full bg-[#41434A] flex items-center justify-center mb-2">
-            {getChannelIcon()}
-          </div>
-          <h1 className="text-[32px] font-bold text-[#F2F3F5] mb-2">
-            Welcome to #{channel.name}!
-          </h1>
-          <p className="text-[#B5BAC1]">
-            {channel.description || `This is the start of the #${channel.name} channel.`}
-          </p>
-        </div>
+        <ChannelWelcome channel={channel} />
 
         {/* Divider with date */}
         <div className="flex items-center gap-2 px-4 mb-4">

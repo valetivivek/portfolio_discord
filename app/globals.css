@@ -138,7 +138,7 @@ body {
 
 /* Focus visible */
 *:focus-visible {
-  @apply outline-none ring-2 ring-[#00A8FC] ring-offset-2 ring-offset-[#313338];
+  @apply outline-none ring-2 ring-[#5865F2] ring-offset-2 ring-offset-[#313338];
 }
 
 /* Reduced motion */

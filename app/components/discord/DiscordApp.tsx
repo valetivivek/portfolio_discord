@@ -79,9 +79,9 @@ function DiscordLayout() {
   );
 }
 
-export default function DiscordApp() {
+export default function DiscordApp({ initialChannel = "welcome" }: { initialChannel?: string }) {
   return (
-    <DiscordProvider>
+    <DiscordProvider initialChannel={initialChannel}>
       <DiscordLayout />
     </DiscordProvider>
   );

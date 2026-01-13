@@ -10,8 +10,10 @@ export const metadata: Metadata = {
   },
 };
 
+import DiscordApp from "@/components/discord/DiscordApp";
+
 export default function ProjectsPage() {
-  return <ProjectsClient />;
+  return <DiscordApp initialChannel="projects" />;
 }
 
 

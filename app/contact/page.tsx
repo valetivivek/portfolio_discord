@@ -10,8 +10,10 @@ export const metadata: Metadata = {
   },
 };
 
+import DiscordApp from "@/components/discord/DiscordApp";
+
 export default function ContactPage() {
-  return <ContactClient />;
+  return <DiscordApp initialChannel="contact" />;
 }
 
 
